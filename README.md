@@ -8,3 +8,8 @@
 
 
 - A ConfigMap is an API object used to store non-confidential data in key-value pairs. Pods can consume ConfigMaps as environment variables.
+
+
+Workflow followed:
+
+[workflow.png](https://postimg.cc/jnsGhnLx)
