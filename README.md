@@ -12,4 +12,4 @@
 
 Workflow followed:
 
-[workflow.png](https://postimg.cc/jnsGhnLx)
+[![workflow.png](https://i.postimg.cc/1X6sspSq/workflow.png)](https://postimg.cc/jnsGhnLx)
