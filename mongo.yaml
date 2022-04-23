@@ -49,7 +49,7 @@ spec:
   ports:
     - protocol: TCP
       # service port
-      ports: 27017
+      port: 27017
       # the container port
       targetPort: 27017
 
