@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb-deployment
+  namespace: hns
+  labels:
+    app: mongodb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongodb
+  template:
+    metadata:
+    # app labels to connect the pod to service
+      labels:
+        app: mongodb
+    spec:
+      containers:
+      - name: mongodb
+        image: mongo
+        ports:
+        - containerPort: 27017
+        env:
+        # db username and password referenced from the secret
+        - name: MONGO_INITDB_ROOT_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mongodb-secret
+              key: mongo-root-username
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mongodb-secret
+              key: mongo-root-password
+
+# multiple documents in 1 file
+# deployment & service in 1 file
+# because they belong together
+---
+apiVersion: 1
+kind: Service
+metadata:
+  name: mongodb-service
+spec:
+  # app selector to connect to the pod 
+  selector: 
+    app: mongodb
+  ports:
+    - protocol: TCP
+      # service port
+      ports: 27017
+      # the container port
+      targetPort: 27017
+

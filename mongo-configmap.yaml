@@ -1,0 +1,11 @@
+# config map must already be in the k8s cluster, when referencing it!
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mongodb-configmap
+  # in which namespace you want to create your resources
+  namespace: hns
+data:
+# server is actually the name of the service
+  database_url: mongodb-service
