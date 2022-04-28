@@ -1,0 +1,15 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: ingress
+metadata:
+  name: myapp-ingress
+spec:
+  # routing rules!
+  rules:
+  - host: mymongo.com
+    http:
+      # the URL paths coming after the host name
+      paths:
+      - backend:
+          # redirected to internal service
+          serviceName: mongo-express-service
+          servicePort: 8081

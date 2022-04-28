@@ -1,0 +1,54 @@
+# 
+#  Service Without ingress
+# 
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-external-service
+spec:
+  selector:
+    app: myapp
+  # an external ip will be assigned
+  type: LoadBalancer 
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+      nodePort: 35010
+
+---
+# 
+#  ingress
+# 
+apiVersion: networking.k8s.io/v1beta1
+kind: ingress
+metadata:
+  name: myapp-ingress
+spec:
+  # routing rules!
+  rules:
+  - host: myapp.com
+    http:
+      # the URL paths coming after the host name
+      paths:
+      - backend:
+          # redirected to internal service
+          serviceName: myapp-internal-service
+          servicePort: 8080
+
+---
+# With ingress, the service would look like this
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-internal-service
+spec:
+  selector:
+    app: myapp
+  # an external ip will be assigned 
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
